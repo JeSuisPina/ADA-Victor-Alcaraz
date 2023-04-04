@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void generar_enteros_aleatorios(int n, int min_valor, int max_valor, int arr[]);
+void imprimir_arreglo(int arr[], int n);
+int buscar_secuencial(int arr[], int n, int x);
+void ordenar_arreglo(int arr[], int n);
+double tiempo;
+
+int main() {
+    int n = 100000, x = 0, posicion_x = 0;
+    int min_valor = 1, max_valor = 100;
+    int arr[n];
+    clock_t inicio1, inicio2, inicio3, inicio4, fin1, fin2, fin3, fin4, fin5;
+    
+//Generar numeros aleatorios (Punto 1)
+	inicio1 = clock();
+    generar_enteros_aleatorios(n, min_valor, max_valor, arr); 
+    fin1 = clock();
+    printf("\n\n(Punto 1)Memoria de\nn: %d\nmin_valor: %d\nmax_valor: %d\narr: %d\n\n", 
+	sizeof(n), sizeof(min_valor), sizeof(max_valor), sizeof(arr));
+//Imprimir arreglo de numeros aleatorios (Punto 2)
+	inicio2 = clock();
+	printf("Arreglo:\n");
+    imprimir_arreglo(arr, n); 
+    fin2 = clock();
+    printf("\n\n(Punto 2)Memoria de\nn: %d\narr: %d\n\n", 
+	sizeof(n), sizeof(arr));
+//Busqueda secuencial de numeros aleatorios (Punto 3)
+	printf("\nIngresa el numero a buscar: ");
+	scanf("%d", &x);
+	inicio3 = clock();
+	posicion_x = buscar_secuencial(arr, n, x);
+	    if (posicion_x == -1) {
+        printf("El elemento %d no se encuentra en el arreglo.\n", posicion_x);
+    } else {
+        printf("El elemento %d se encuentra en la posicion %d del arreglo.\n", x, posicion_x+1);
+    }
+    fin3 = clock();
+    printf("\n\n(Punto 3)Memoria de\nn: %d\nx: %d\narr: %d\nposicion_x: %d\n\n", 
+	sizeof(n), sizeof(x), sizeof(arr), sizeof(posicion_x));
+//Ordenamiento del arreglo (Punto 4 y 5)t
+	inicio4 = clock();
+	ordenar_arreglo(arr, n);
+	printf("\nArreglo Ordenado:\n");
+	//imprimir_arreglo(arr, n);
+	fin4 = clock();
+	printf("\n\n(Punto 4 y 5)Memoria de\nn: %d\narr: %d\n\n", 
+	sizeof(n), sizeof(arr));
+    
+//Timepo del punto 1
+    tiempo = (double)(fin1 - inicio1) / CLOCKS_PER_SEC;
+    printf("\n\nTiempo de ejecucion 1: %.5f segundos.\n", tiempo);
+//Timepo del punto 2
+    tiempo = (double)(fin2 - inicio2) / CLOCKS_PER_SEC;
+    printf("Tiempo de ejecucion 2: %.5f segundos.\n", tiempo);
+//Timepo del punto 3
+    tiempo = (double)(fin3 - inicio3) / CLOCKS_PER_SEC;
+    printf("Tiempo de ejecucion 3: %.5f segundos.\n", tiempo);
+//Timepo del punto 4 y 5
+    tiempo = (double)(fin4 - inicio4) / CLOCKS_PER_SEC;
+    printf("Tiempo de ejecucion 4 y 5: %.5f segundos.\n", tiempo);
+    return 0;
+}
+
+void generar_enteros_aleatorios(int n, int min_valor, int max_valor, int arr[]) {
+    srand(time(NULL)); // Inicializar la semilla de números aleatorios con el tiempo actual
+    int i=0;
+    for (i = 0; i < n; i++) {
+        arr[i] = rand() % (max_valor - min_valor + 1) + min_valor; // Generar un número aleatorio y guardar en el arreglo
+    }
+}
+
+
+void imprimir_arreglo(int arr[], int n) {
+	int i=0;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int buscar_secuencial(int arr[], int n, int x) {
+	int i=0;
+    for (i = 0; i < n; i++) {
+        if (arr[i] == x) {
+            return i; // Devolver el índice del elemento encontrado
+        }
+    }
+    
+    return -1; // Devolver -1 si el elemento no se encuentra en el arreglo
+}
+
+void ordenar_arreglo(int arr[], int n) {
+    int temp = 0, i=0, j=0;
+    for (i = 0; i < n - 1; i++) {
+        int min = i;
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min]) {
+                min = j;
+            }
+        }
+        temp = arr[min];
+        arr[min] = arr[i];
+        arr[i] = temp;
+    }
+}
