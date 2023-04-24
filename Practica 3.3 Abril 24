@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+/*
+    La función f(n) es el número de multiplicaciones y asignaciones realizadas en la implementación recursiva del factorial, 
+    que es n (una multiplicación y una asignación en cada llamada recursiva).
+    
+    El valor de a en este caso es 1, ya que se realiza una llamada recursiva en cada paso.
+    
+    El valor de b es 2, ya que el tamaño del problema se reduce a la mitad en cada llamada recursiva (n - 1 en la llamada recursiva).
+    
+    El valor de d en este caso es 0, ya que no hay costos adicionales fuera de las multiplicaciones y asignaciones.
+
+    Por lo tanto, según el Teorema del Maestro, la complejidad del factorial recursivo implementado es:
+    Si f(n) = n, entonces T(n) es O (n^(log_b(a) + 1)) = O(n^0) = O(1).
+    
+    En resumen, la complejidad del programa factorial recursivo implementado es constante, ya que es O(1), 
+    lo que significa que el tiempo de ejecución del algoritmo no depende del tamaño del input (n) y se mantiene constante.
+*/
+
+// Función factorial recursiva
+int factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+int main() {
+    int n = 5; // Ejemplo: calcular el factorial de 5
+    int resultado = factorial(n);
+    printf("El factorial de %d es: %d\n", n, resultado);
+    return 0;
+}
