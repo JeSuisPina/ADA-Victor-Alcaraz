@@ -1,0 +1,80 @@
+#include <stdio.h>
+
+/*
+Tamaño del problema: El tamaño del problema se representa por la diferencia high - low + 1, que es el número de elementos a ordenar en el arreglo.
+
+División del problema: Stooge Sort divide el arreglo en dos partes en cada llamada recursiva, ordenando el primer 2/3 y el último 2/3 del arreglo por separado.
+
+Costo de combinación: No hay un costo de combinación, ya que el arreglo se combina automáticamente después de ordenar el primer y último 2/3 del arreglo.
+
+Complejidad de las llamadas recursivas: Stooge Sort realiza tres llamadas recursivas en cada nivel de recursión, una para el primer 2/3 del arreglo, 
+otra para el último 2/3 del arreglo y otra vez para el primer 2/3 del arreglo.
+
+Con base en lo anterior, podemos utilizar el Teorema del Maestro para determinar la complejidad del algoritmo Stooge Sort:
+
+T(n) = a * T(n/b) + f(n)
+
+Donde:
+
+    a = 3 (número de llamadas recursivas)
+    b = 3/2 (tamaño del problema se reduce a 2/3 en cada llamada recursiva)
+    f(n) = 3(n/3) + 1 + 3(n/3) = 2n + 1 (costo de las operaciones fuera de las llamadas recursivas)
+
+El algoritmo Stooge Sort implementado de forma recursiva recae en el tercer caso del Teorema del Maestro,
+por lo tanto, la complejidad del algoritmo Stooge Sort implementado de forma recursiva es O(n^log_(3/2)(3) * log n)
+*/
+
+// Función auxiliar para intercambiar dos elementos en un arreglo
+void swap(int arr[], int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+// Función de ordenamiento stooge sort
+void stoogesort(int arr[], int low, int high) {
+    if (low >= high) {
+        return;
+    }
+
+    // Si el primer elemento es mayor que el último, intercambiarlos
+    if (arr[low] > arr[high]) {
+        swap(arr, low, high);
+    }
+
+    // Si hay más de 2 elementos en el arreglo
+    if (high - low + 1 > 2) {
+        int t = (high - low + 1) / 3;
+
+        // Ordenar el primer 2/3 del arreglo
+        stoogesort(arr, low, high - t);
+
+        // Ordenar el último 2/3 del arreglo
+        stoogesort(arr, low + t, high);
+
+        // Ordenar nuevamente el primer 2/3 del arreglo
+        stoogesort(arr, low, high - t);
+    }
+}
+
+int main() {
+    // Ejemplo de uso de stoogesort
+    int arr[] = {10, 5, 8, 1, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Arreglo original: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    stoogesort(arr, 0, n - 1);
+
+    printf("Arreglo ordenado: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
