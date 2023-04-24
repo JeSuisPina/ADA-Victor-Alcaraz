@@ -1,18 +1,15 @@
 #include <stdio.h>
 
 /*
-Tamaño del problema: El tamaño del problema se representa por la diferencia high - low + 1, que es el número de elementos a ordenar en el arreglo.
+    -Tamaño del problema: El tamaño del problema se representa por la diferencia high - low + 1, que es el número de elementos a ordenar en el arreglo.
+    -División del problema: Stooge Sort divide el arreglo en dos partes en cada llamada recursiva, 
+     ordenando el primer 2/3 y el último 2/3 del arreglo por separado.
+    -Costo de combinación: No hay un costo de combinación, ya que el arreglo se combina automáticamente después de ordenar el primer y último 2/3 del arreglo.
+    -Complejidad de las llamadas recursivas: Stooge Sort realiza tres llamadas recursivas en cada nivel de recursión, una para el primer 2/3 del arreglo, 
+     otra para el último 2/3 del arreglo y otra vez para el primer 2/3 del arreglo.
 
-División del problema: Stooge Sort divide el arreglo en dos partes en cada llamada recursiva, ordenando el primer 2/3 y el último 2/3 del arreglo por separado.
-
-Costo de combinación: No hay un costo de combinación, ya que el arreglo se combina automáticamente después de ordenar el primer y último 2/3 del arreglo.
-
-Complejidad de las llamadas recursivas: Stooge Sort realiza tres llamadas recursivas en cada nivel de recursión, una para el primer 2/3 del arreglo, 
-otra para el último 2/3 del arreglo y otra vez para el primer 2/3 del arreglo.
-
-Con base en lo anterior, podemos utilizar el Teorema del Maestro para determinar la complejidad del algoritmo Stooge Sort:
-
-T(n) = a * T(n/b) + f(n)
+    Con base en lo anterior, podemos utilizar el Teorema del Maestro para determinar la complejidad del algoritmo Stooge Sort:
+    T(n) = a * T(n/b) + f(n)
 
 Donde:
 
