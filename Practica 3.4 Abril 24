@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+/*
+    -La función f(n) es el número de sumas y asignaciones realizadas en la implementación recursiva de la secuencia de Fibonacci, 
+     que es aproximadamente 2^n (debido a la recursión exponencial).
+    -El valor de a en este caso es 2, ya que se realizan dos llamadas recursivas en cada paso.
+    -El valor de b es 2, ya que el tamaño del problema se reduce a la mitad en cada llamada recursiva (n - 1 y n - 2 en las llamadas recursivas)
+    -El valor de d en este caso es 0, ya que no hay costos adicionales fuera de las sumas y asignaciones.
+
+    Por lo tanto, según el Teorema del Maestro, la complejidad de la implementación recursiva de la secuencia de Fibonacci es:
+    Si f(n) ≈ 2^n, entonces T(n) es O(n^(log_b(a))) = O(n^(log_2(2))) = O(n).
+    
+    la complejidad del programa que genera la secuencia de Fibonacci de forma recursiva es lineal, 
+    ya que es O(n), lo que significa que el tiempo de ejecución del algoritmo crece linealmente con el tamaño del input.
+*/
+
+// Función para calcular el término n-ésimo de la secuencia de Fibonacci
+int fibonacci(int n) {
+    if (n <= 0) {
+        return 0;
+    } else if (n == 1) {
+        return 1;
+    } else {
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+
+int main() {
+    int n = 7; // Ejemplo: generar el término 7 de la secuencia de Fibonacci
+    int resultado = fibonacci(n);
+    printf("El término %d de la secuencia de Fibonacci es: %d\n", n, resultado);
+    return 0;
+}
